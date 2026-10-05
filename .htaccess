@@ -1,0 +1,57 @@
+# ==========================================================================
+#  在线商城独立服务站 —— Web 访问保护（Apache）
+# ==========================================================================
+#  说明：
+#    · Nginx / OpenResty 不认 .htaccess，必须到站点配置里加 deny 规则，
+#      片段见「部署说明.md」第四节。
+#    · 如果加了本文件后网站报 500，说明主机没开 AllowOverride，
+#      请联系主机商开启，或直接删掉本文件、改用 Nginx/Apache 主配置里的规则。
+# ==========================================================================
+
+# ---------- 1. 数据目录：订单数据库是明文 SQLite，含客户姓名/微信/电话 ----------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^data/ - [F,L]
+</IfModule>
+
+# ---------- 2. 密钥目录：里面是明文的 AES 密钥 ----------
+<IfModule mod_rewrite.c>
+    RewriteRule ^secret/ - [F,L]
+</IfModule>
+
+<Files "config.secret.php">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</Files>
+
+# ---------- 3. 部署说明等文档：含默认账号密码提示，不该公开 ----------
+<FilesMatch "\.(md|txt|log|sql|bak|json|db|sqlite|sqlite3)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# ---------- 4. inc/ 与 cron/ 目录：脚本自带守卫，这里再加一层 ----------
+<IfModule mod_rewrite.c>
+    RewriteRule ^(inc|cron)/ - [F,L]
+</IfModule>
+
+# ---------- 5. 隐藏敏感文件 ----------
+<FilesMatch "^\.(htaccess|git|env)">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>

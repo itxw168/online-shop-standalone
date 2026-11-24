@@ -1,0 +1,7 @@
+{
+  "defaults": {
+    "run-as": "package"
+  },
+  "username": "online-shop",
+  "groupname": "online-shop"
+}

@@ -1,0 +1,21 @@
+services:
+  shop:
+    # 发布前替换为你的公共镜像仓库；tag 使用不可变版本号，不要用 latest。
+    image: ${SHOP_IMAGE:-itxw888/online-shop:1.0.3}
+    container_name: online-shop
+    restart: unless-stopped
+    ports:
+      - "${TRIM_SERVICE_PORT}:80"
+    environment:
+      TZ: Asia/Shanghai
+      SHOP_ADMIN_USER: admin
+      SHOP_ADMIN_PASSWORD: admin123
+    volumes:
+      - "${TRIM_PKGVAR}/data:/var/www/html/data"
+      - "${TRIM_PKGVAR}/secret:/var/www/html/secret"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s

@@ -1,0 +1,21 @@
+.git
+.github
+.gitignore
+.env
+.env.*
+Readme-imgs
+docs
+fnos
+tools
+_backups
+*.fpk
+*.md
+!docker/seed/shop.demo.json
+
+# 运行数据与密钥不进入镜像
+data/*
+!data/.htaccess
+!data/index.html
+secret/*
+!secret/.htaccess
+!secret/index.html

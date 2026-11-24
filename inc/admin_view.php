@@ -1735,7 +1735,7 @@ $footerShow = trim((string)($shopData['footer_title'] ?? ''))  !== '' ? $shopDat
       </div>
       <div class="shop-field">
         <label>返回按钮文字 <span class="hint">（留空则隐藏该按钮）</span></label>
-        <input type="text" name="topbar_back" value="<?php echo htmlspecialchars((string)($shopData['topbar_back'] ?? '← 返回主站')); ?>">
+        <input type="text" name="topbar_back" value="<?php echo htmlspecialchars((string)($shopData['topbar_back'] ?? '← 返回首页')); ?>">
       </div>
     </div>
     <div class="shop-field">
@@ -2059,7 +2059,7 @@ $canSock  = function_exists('stream_socket_client');
 
   <?php if (!$canCurl): ?>
     <div class="alert alert-error" style="background:var(--warn-soft);border-color:var(--warn);color:var(--warn);">
-      ⚠️ 未检测到 PHP <strong>curl</strong> 扩展，推送将退化为 stream 方式（一般仍可用，但建议在 1Panel 中启用 curl 扩展）。
+      ⚠️ 未检测到 PHP <strong>curl</strong> 扩展，推送将退化为 stream 方式（一般仍可用，但建议在主机面板的 PHP 扩展中启用 curl 扩展）。
     </div>
   <?php endif; ?>
   <?php if (!$canSock): ?>
@@ -2230,7 +2230,7 @@ $canSock  = function_exists('stream_socket_client');
         <strong>💻 电脑端</strong>：① 浏览器打开 <code>https://你的服务器/你的topic</code>（网页版收件箱，挂着就能看）；
         ② ntfy 官方有<strong>桌面 App</strong>（Windows / macOS / Linux），装好后同样填服务器地址 + topic 即可收系统通知。<br>
         服务器部署：<code>docker run -d --name ntfy -p 8080:80 -v /opt/ntfy:/var/cache/ntfy binwiederhier/ntfy serve --cache-file /var/cache/ntfy/cache.db</code><br>
-        再用 1Panel 建站点反代到 <code>127.0.0.1:8080</code> 并申请证书（App 要求 HTTPS）。
+        再用 Nginx / 反向代理建站点反代到 <code>127.0.0.1:8080</code> 并申请证书（App 要求 HTTPS）。
       </div>
       <label class="shop-check"><input type="checkbox" name="ntfy_enable" value="1" <?php echo !empty($ntfy['enable']) ? 'checked' : ''; ?>> 启用 ntfy 通道</label>
       <div class="shop-grid2">
@@ -2468,7 +2468,7 @@ $canSock  = function_exists('stream_socket_client');
   </details>
 
   <div class="tips" style="margin-top:16px;">
-    <strong>没有 cron 的主机怎么办？</strong>本模块已内置「懒重试」：客户访问商城页面或你打开后台订单页时会自动处理到期队列；若你的主机支持计划任务，建议在 1Panel 加一条：
+    <strong>没有 cron 的主机怎么办？</strong>本模块已内置「懒重试」：客户访问商城页面或你打开后台订单页时会自动处理到期队列；若你的主机支持计划任务，建议在主机面板 / 服务器计划任务中加一条：
     <code>*/2 * * * * php /网站目录/cron/push_retry.php</code>
   </div>
 </div>

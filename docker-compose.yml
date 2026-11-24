@@ -1,0 +1,27 @@
+name: online-shop
+
+services:
+  shop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PHP_IMAGE: ${PHP_IMAGE:-php:8.3-fpm-alpine}
+    image: ${SHOP_IMAGE:-online-shop:local}
+    container_name: online-shop
+    restart: unless-stopped
+    ports:
+      - "${SHOP_PORT:-8080}:80"
+    environment:
+      TZ: Asia/Shanghai
+      SHOP_ADMIN_USER: ${SHOP_ADMIN_USER:-admin}
+      SHOP_ADMIN_PASSWORD: ${SHOP_ADMIN_PASSWORD:-admin123}
+    volumes:
+      - ./data:/var/www/html/data
+      - ./secret:/var/www/html/secret
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s

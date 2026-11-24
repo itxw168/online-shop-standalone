@@ -1,0 +1,6 @@
+# 禁止直接访问数据目录（Apache）
+Require all denied
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>

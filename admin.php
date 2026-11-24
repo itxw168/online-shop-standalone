@@ -45,7 +45,7 @@ function shop_admin_account() {
         if (is_array($a) && !empty($a['user']) && !empty($a['hash'])) return $a;
     }
 
-    $a = ['user' => 'admin', 'hash' => password_hash('admin888', PASSWORD_DEFAULT)];
+    $a = ['user' => 'admin', 'hash' => password_hash('admin123', PASSWORD_DEFAULT)];
     shop_admin_account_save($a);
     return $a;
 }
@@ -59,7 +59,7 @@ function shop_admin_account_save(array $a) {
 
 // 是否仍在使用默认账号/密码（登录页提示 + 后台横幅提醒）
 function shop_using_default_creds(array $a) {
-    return (string)($a['user'] ?? '') === 'admin' && password_verify('admin888', (string)($a['hash'] ?? ''));
+    return (string)($a['user'] ?? '') === 'admin' && password_verify('admin123', (string)($a['hash'] ?? ''));
 }
 function csrf_field() {
     return '<input type="hidden" name="csrf" value="' . htmlspecialchars((string)($_SESSION['csrf_token'] ?? '')) . '">';
@@ -195,7 +195,7 @@ body{display:flex;align-items:center;justify-content:center;min-height:100vh;
     <input type="password" name="pass" autocomplete="current-password" required>
     <button type="submit">登 录</button>
     <?php if (shop_using_default_creds($acct)): ?>
-    <div class="tip">默认账号 admin / 密码 admin888<br>登录后请立刻修改</div>
+    <div class="tip">默认账号 admin / 密码 admin123<br>登录后请立刻修改</div>
     <?php endif; ?>
   </form>
 </body>

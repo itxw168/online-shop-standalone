@@ -1,0 +1,210 @@
+{
+  "page_title": "在线商城 · 演示站",
+  "page_subtitle": "虚拟商品与远程服务 · 全部为虚构测试数据",
+  "announcement": "这是演示数据：商品、价格、联系方式、收款码均为虚构，不会产生真实交易。请在正式使用前替换为你的资料。",
+  "brand_name": "演示商城",
+  "topbar_query": "🔍 查询订单",
+  "topbar_back": "🛍 回到商城",
+  "topbar_back_url": "./index.php",
+  "footer_title": "演示商城",
+  "footer_note": "演示数据，仅用于功能测试；请勿真实付款。",
+  "footer_link1_text": "订单查询",
+  "footer_link1_url": "./query.php",
+  "footer_link2_text": "联系我们",
+  "footer_link2_url": "./contact.php",
+  "pay": {
+    "qr_mode": "aggregate",
+    "qr_url": "./assets/demo-qr.svg",
+    "qr_wechat": "",
+    "qr_alipay": "",
+    "qr_tip": "演示收款码 · 不可支付",
+    "payee_name": "演示商城",
+    "code_mode": "short",
+    "code_length": 2,
+    "allow_regenerate": 1,
+    "unpaid_expire_minutes": 30,
+    "expired_keep_days": 7,
+    "contact_admin_url": "./contact.php",
+    "contact_admin_text": "联系演示客服",
+    "tips": "演示订单不会产生真实扣款；请勿扫描演示二维码付款。"
+  },
+  "form": {
+    "require_wechat": 0,
+    "require_phone": 0,
+    "require_book_time": 0,
+    "enable_remark": 1,
+    "enable_booking": 1,
+    "notice": "演示下单只写入本地测试数据库，不会发送通知，也不会产生真实交易。"
+  },
+  "query": {
+    "enable": 1,
+    "need_phone_tail": 1,
+    "page_title": "订单查询",
+    "page_tip": "输入演示下单时填写的手机号或微信号即可查询；演示数据建议使用 123456。"
+  },
+  "push": {
+    "enable": 0,
+    "on_events": [
+      "created",
+      "paid"
+    ],
+    "title": "【{site}】{event_label}",
+    "template": "🛒 {event_label}\\n订单号：{order_no}\\n备注码：{pay_code}\\n商品：{items}\\n金额：￥{amount}\\n称呼：{name}\\n微信：{wechat}\\n电话：{phone}\\n类型：{mode}\\n预约：{book_time}\\n备注：{remark}\\n状态：{status}\\n时间：{created_at}",
+    "channels": [
+      {
+        "key": "gotify",
+        "name": "Gotify（自建，安卓 App，推荐）",
+        "type": "gotify",
+        "enable": 0,
+        "server": "",
+        "token": "",
+        "priority": 5,
+        "title": "新订单通知"
+      },
+      {
+        "key": "ntfy",
+        "name": "ntfy 推送（自建，安卓 App）",
+        "type": "ntfy",
+        "enable": 0,
+        "server": "",
+        "topic": "",
+        "token": "",
+        "priority": "high",
+        "tags": "shopping_cart",
+        "title": "新订单通知"
+      },
+      {
+        "key": "email",
+        "name": "邮件推送（SMTP）",
+        "type": "email",
+        "enable": 0,
+        "host": "",
+        "port": 465,
+        "secure": "ssl",
+        "user": "",
+        "pass": "",
+        "from": "",
+        "to": "",
+        "from_name": "在线商城"
+      },
+      {
+        "key": "webhook",
+        "name": "通用 Webhook（企业微信/钉钉/飞书/Bark/Gotify/PushMe）",
+        "type": "webhook",
+        "enable": 0,
+        "url": "",
+        "method": "POST",
+        "content_type": "application/json",
+        "headers": "",
+        "body_template": "{\"msgtype\":\"text\",\"text\":{\"content\":\"{text}\"}}"
+      }
+    ]
+  },
+  "contact": {
+    "enable": 1,
+    "owner_name": "演示客服",
+    "title": "联系演示客服",
+    "subtitle": "以下均为演示资料，请勿用于真实联系",
+    "notice": "这是开源项目的测试数据，联系方式、二维码均不可用。",
+    "wechat": "demo_shop",
+    "qq": "",
+    "phone": "000-0000-0000",
+    "email": "demo@example.com",
+    "work_hours": "周一至周五 09:00-18:00（演示）",
+    "qr_url": "./assets/demo-wechat.svg",
+    "qr_tip": "演示微信二维码",
+    "douyin_home": "",
+    "douyin_live": "",
+    "douyin_id": "",
+    "extra": "",
+    "footer_note": ""
+  },
+  "categories": [
+    {
+      "key": "demo-digital",
+      "name": "演示 · 数字商品"
+    },
+    {
+      "key": "demo-service",
+      "name": "演示 · 远程服务"
+    },
+    {
+      "key": "demo-booking",
+      "name": "演示 · 预约服务"
+    }
+  ],
+  "products": [
+    {
+      "id": "demo-001",
+      "name": "演示商品 · 标准版",
+      "category": "demo-digital",
+      "tags": [
+        "演示",
+        "虚拟商品"
+      ],
+      "desc": "用于测试下单、支付、查询流程的虚构数字商品，不包含任何真实内容。",
+      "image": "",
+      "icon": "🧪",
+      "price": 9.9,
+      "unit": "份",
+      "stock": -1,
+      "allow_now": 1,
+      "allow_booking": 0,
+      "status": "on"
+    },
+    {
+      "id": "demo-002",
+      "name": "演示服务 · 远程协助",
+      "category": "demo-service",
+      "tags": [
+        "演示",
+        "远程"
+      ],
+      "desc": "虚构的远程协助服务，用于测试服务类商品的立即下单流程。",
+      "image": "",
+      "icon": "🛠",
+      "price": 49,
+      "unit": "次",
+      "stock": -1,
+      "allow_now": 1,
+      "allow_booking": 1,
+      "status": "on"
+    },
+    {
+      "id": "demo-003",
+      "name": "演示服务 · 预约时段",
+      "category": "demo-booking",
+      "tags": [
+        "演示",
+        "预约"
+      ],
+      "desc": "虚构的预约服务，用于测试选择日期、时间段和预约下单。",
+      "image": "",
+      "icon": "📅",
+      "price": 99,
+      "unit": "次",
+      "stock": 10,
+      "allow_now": 0,
+      "allow_booking": 1,
+      "status": "on"
+    },
+    {
+      "id": "demo-004",
+      "name": "演示商品 · 组合包",
+      "category": "demo-digital",
+      "tags": [
+        "演示",
+        "组合"
+      ],
+      "desc": "虚构的组合商品，用于测试多商品勾选、合并下单和金额合计。",
+      "image": "",
+      "icon": "📦",
+      "price": 19.9,
+      "unit": "套",
+      "stock": -1,
+      "allow_now": 1,
+      "allow_booking": 1,
+      "status": "on"
+    }
+  ]
+}

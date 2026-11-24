@@ -19,7 +19,11 @@ secret/config.secret.php
 *.log
 *.zip
 *.7z
+*.fpk
 _backups/
+.env
+.tools/
+dist/
 
 # ============================================================
 #  系统 / 编辑器

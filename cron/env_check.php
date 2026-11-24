@@ -50,7 +50,7 @@ foreach ($exts as $e => $info) {
         line('PASS', "扩展 $e", '已启用（' . $info[0] . '）');
     } else {
         line('FAIL', "扩展 $e", '未启用 —— ' . $info[1]);
-        $todo[] = "在 1Panel →「网站 → PHP 运行环境 → 扩展」中勾选安装 {$e}，然后重启 PHP-FPM";
+        $todo[] = "在主机面板的 PHP 扩展中安装 {$e}，然后重启 PHP-FPM";
     }
 }
 foreach (['curl' => '推送 HTTP 请求（ntfy / 企业微信等），缺失会退化为 stream 方式',
@@ -58,7 +58,7 @@ foreach (['curl' => '推送 HTTP 请求（ntfy / 企业微信等），缺失会�
           'session' => '后台登录态'] as $k => $why) {
     $ok = ($k === 'stream_socket_client') ? function_exists($k) : extension_loaded($k);
     line($ok ? 'PASS' : 'WARN', ($k === 'stream_socket_client' ? '函数 ' : '扩展 ') . $k, $ok ? '可用' : ('不可用 —— ' . $why));
-    if (!$ok && $k === 'curl') $todo[] = '建议启用 curl 扩展（推送更可靠），1Panel → PHP → 扩展';
+    if (!$ok && $k === 'curl') $todo[] = '建议在主机面板的 PHP 扩展中启用 curl（推送更可靠）';
 }
 
 if (extension_loaded('pdo_sqlite')) {
@@ -98,7 +98,7 @@ foreach (['data' => '商城配置与订单库'] as $d => $why) {
     $ok = @file_put_contents($probe, 'x') !== false;
     if ($ok) @unlink($probe);
     line($ok ? 'PASS' : 'FAIL', "$d/ 可写", $ok ? "正常（{$why}）" : "不可写（{$why}）");
-    if (!$ok) $todo[] = "把 $d/ 权限改为 755 且属主为 Web 运行用户（1Panel 里 www 或容器用户）";
+    if (!$ok) $todo[] = "把 $d/ 权限改为 755 且属主为 Web 运行用户（主机面板的 www 或容器用户）";
 }
 
 head('5. 商城模块文件完整性');

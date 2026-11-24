@@ -1,0 +1,16 @@
+appname=online-shop
+version=1.0.3
+display_name=在线商城
+desc=<p><strong>在线商城 · 独立服务站</strong>是一套零依赖、单目录部署的自助下单商城，适合虚拟商品、远程服务与预约类业务。</p><ul><li>商品展示、分类筛选、购物车数量与库存上限</li><li>自助下单、收款码与备注码、订单查询</li><li>后台管理订单、商品、分类、页面文案、推送、风控与审计日志</li><li>Docker 与飞牛 fnOS 部署，数据保存在本机</li><li>内置演示数据，默认后台 admin/admin123，首次登录请修改</li></ul><p>技术栈：PHP 8.3 + SQLite，无需 MySQL；支持 ntfy、Webhook、SMTP 推送。</p>
+source=thirdparty
+platform=x86
+maintainer=it小魏
+maintainer_url=https://github.com/itxw168/
+distributor=it小魏
+distributor_url=https://www.itxw.cc/
+desktop_uidir=ui
+desktop_applaunchname=online-shop.main
+service_port=8080
+checkport=true
+ctl_stop=true
+changelog=1.0.3：开发者与发布者显示名统一为 it小魏；开发者链接指向 GitHub，发布者链接指向官网；包含 1.0.2 的应用介绍与 1.0.1 的金额、图标修复。

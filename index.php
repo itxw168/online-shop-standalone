@@ -697,8 +697,8 @@ $brandTxt  = trim((string)($cfg['brand_name'] ?? '')) !== ''
            ? (string)$cfg['brand_name']
            : ($payCfg['payee_name'] !== '' ? (string)$payCfg['payee_name'] : '在线下单');
 $tbQuery   = (string)($cfg['topbar_query'] ?? '🔍 查询订单');
-$tbBack    = (string)($cfg['topbar_back'] ?? '← 返回主站');
-$tbBackUrl = trim((string)($cfg['topbar_back_url'] ?? '')) !== '' ? (string)$cfg['topbar_back_url'] : '../';
+$tbBack    = (string)($cfg['topbar_back'] ?? '← 返回首页');
+$tbBackUrl = trim((string)($cfg['topbar_back_url'] ?? '')) !== '' ? (string)$cfg['topbar_back_url'] : './index.php';
 $ftTitle   = trim((string)($cfg['footer_title'] ?? '')) !== ''
            ? (string)$cfg['footer_title']
            : (($payCfg['payee_name'] !== '' ? (string)$payCfg['payee_name'] : '在线商城') . ' · 在线下单');
@@ -953,7 +953,12 @@ function esc(s){
     .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
     .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
-function money(v){ return '￥' + v; }
+function money(v){
+  var n = Number(v);
+  if (!isFinite(n)) n = 0;
+  n = Math.round(n * 100) / 100;
+  return '￥' + n.toFixed(2).replace(/\.00$/, '').replace(/(\.\d)0$/, '$1');
+}
 
 function renderPills(){
   var html = '<div class="pill active" data-cat="all" onclick="setCat(\'all\')">全部</div>';
@@ -1126,9 +1131,11 @@ function togglePick(pid){
 
 function setQty(pid, d){
   if (!state.picked[pid]) return;
+  var p = findProduct(pid);
   var q = state.picked[pid] + d;
   if (q < 1) q = 1;
   if (q > 99) q = 99;
+  if (p && Number(p.stock) >= 0 && q > Number(p.stock)) q = Number(p.stock);
   state.picked[pid] = q;
   syncPickUI();
 }

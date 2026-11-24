@@ -85,7 +85,7 @@ function shop_default_config() {
 
             'unpaid_expire_minutes' => 30,
             'expired_keep_days'     => 7,
-            'contact_admin_url'  => 'Contact.html',
+            'contact_admin_url'  => './contact.php',
             'contact_admin_text' => '联系管理员',
 
         'tips'               => '支付时请在「备注 / 附言」中填写上方备注码，方便我们快速核对到账信息。',
@@ -259,7 +259,7 @@ function shop_db_available() {
 
 function shop_db_unavailable_hint() {
     return '未检测到 PHP 的 pdo_sqlite 扩展，订单功能暂不可用。'
-         . '请在 1Panel →「网站 → PHP 运行环境 → 扩展」中勾选安装 pdo_sqlite（或 sudo apt install php8.x-sqlite3），装好后重启 PHP-FPM。';
+         . '请在主机面板的 PHP 扩展中安装 pdo_sqlite（或 sudo apt install php8.x-sqlite3），装好后重启 PHP-FPM。';
 }
 
 function shop_db() {
@@ -453,7 +453,7 @@ function shop_order_create(array $in) {
     $cfg = shop_config();
 
     $items  = [];
-    $amount = 0.0;
+    $amountCents = 0;
     $stockPlan = [];
     foreach ((array)($in['items'] ?? []) as $line) {
         $pid = (string)($line['id'] ?? '');
@@ -470,7 +470,9 @@ function shop_order_create(array $in) {
             $stockPlan[$found['index']] = $already - $qty;
         }
 
-        $price = round((float)($p['price'] ?? 0), 2);
+        $priceCents = (int)round(((float)($p['price'] ?? 0)) * 100);
+        if ($priceCents < 0) return '商品价格异常：' . ($p['name'] ?? $pid);
+        $price = $priceCents / 100;
         $items[] = [
             'id'    => $p['id'],
             'name'  => $p['name'] ?? '',
@@ -479,9 +481,11 @@ function shop_order_create(array $in) {
             'unit'  => $p['unit'] ?? '次',
             'cat'   => $p['category'] ?? '',
         ];
-        $amount += $price * $qty;
+        $amountCents += $priceCents * $qty;
     }
     if (!$items) return '请至少选择一件商品';
+
+    $amount = $amountCents / 100;
 
     $bookDate = '';
     $bookSlot = '';

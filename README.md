@@ -46,6 +46,17 @@
 
 ---
 
+## 📥 下载
+
+| 内容 | 下载 | 说明 |
+|---|---|---|
+| **源码包 v1.0.3** | [online-shop-1.0.3-source.zip](https://github.com/itxw168/online-shop-standalone/releases/download/v1.0.3/online-shop-1.0.3-source.zip) | 完整源码；Docker 首次启动会自动生成 `data/` 与 `secret/` |
+| **飞牛 fnOS 安装包 v1.0.3** | [online-shop-1.0.3.fpk](https://github.com/itxw168/online-shop-standalone/releases/download/v1.0.3/online-shop-1.0.3.fpk) | 在 fnOS 应用中心「手动安装」 |
+| **Docker 镜像** | [itxw888/online-shop](https://hub.docker.com/r/itxw888/online-shop) | `docker pull itxw888/online-shop:1.0.3` |
+| **Docker 部署教程** | [docs/Docker部署教程.md](docs/Docker部署教程.md) | Compose 配置、反向代理、升级与备份 |
+
+---
+
 ## ✨ 功能特性
 
 ### 前台（客户侧）
@@ -80,6 +91,8 @@
 ---
 
 ## 🐳 Docker 部署（推荐）
+
+> 完整步骤（预构建镜像、Compose 配置、反向代理、升级、备份与排错）见 **[Docker 部署教程](docs/Docker部署教程.md)**。
 
 ### 1. 准备
 
@@ -195,10 +208,10 @@ cd fnos
 ├── docker/                  Docker 构建与初始化文件
 ├── fnos/                    飞牛 fnOS 应用包工程
 ├── assets/                  演示占位图
+├── docs/                    部署教程与技术文档
 ├── Dockerfile
 ├── docker-compose.yml
-├── 部署说明.md
-└── 容器化与开源方案.md
+└── 部署说明.md
 ```
 
 ---
